@@ -2,14 +2,14 @@
 
 # https://github.com/billythegoat356/pydorks
 
-# Version : 0.1
+# Version : 0.2
 
 # <3
 
 
 import requests as req
 from bs4 import BeautifulSoup as bs
-from random import choice, randint
+from random import randint, shuffle
 
 
 # GOOGLE SEARCH CLASS
@@ -45,6 +45,7 @@ class GoogleSearch():
                 random: bool = False,
                 **kwargs):
 
+
         if query is None and kwargs == {} or query is not None and kwargs != {}:
             raise GoogleSearch.QueryError(
                 "Either 'query' argument either keyword arguments has to be passed.")
@@ -64,12 +65,7 @@ class GoogleSearch():
         results = GoogleSearch._parse(html)
 
         if random:
-            random_results = []
-            for _ in range(results_len):
-                random_result = choice(results)
-                random_results.append(random_result)
-                results.remove(random_result)
-            return random_results
+            shuffle(results)
 
         if results_len != len(results):
             results = results[:results_len]
