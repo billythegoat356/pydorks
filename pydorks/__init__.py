@@ -2,7 +2,7 @@
 
 # https://github.com/billythegoat356/pydorks
 
-# Version : 0.2
+# Version : 0.3
 
 # <3
 
@@ -45,7 +45,6 @@ class GoogleSearch():
                 random: bool = False,
                 **kwargs):
 
-
         if query is None and kwargs == {} or query is not None and kwargs != {}:
             raise GoogleSearch.QueryError(
                 "Either 'query' argument either keyword arguments has to be passed.")
@@ -56,7 +55,7 @@ class GoogleSearch():
         results_len_search = randint(
             5, 25) + results_len if random else results_len
 
-        url = f"https://google.com/search?q={query}&num={results_len_search}&hl={lang}&ie={encoding}"
+        url = f"https://google.com/search?q={query}&hl={lang}&ie={encoding}"
         r = req.get(url, headers=GoogleSearch.headers)
 
         r.raise_for_status()
@@ -88,7 +87,8 @@ class GoogleSearch():
 
         return results
 
-    class QueryError(Exception): ...
+    class QueryError(Exception):
+        ...
 
 
 # GOOGLE DORKS CLASS
