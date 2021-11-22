@@ -2,7 +2,7 @@
 
 # https://github.com/billythegoat356/pydorks
 
-# Version : 0.5
+# Version : 0.3
 
 # <3
 
@@ -24,28 +24,25 @@ class GoogleSearch():
                lang: str = "fr",
                encoding: str = "utf-8",
                random: bool = False,
-               image: bool = False,
                **kwargs):
         """
         Google Search
         :param query | str: --> The text to be searched | ex: "billythegoat356"
-        :param results_len | int: --> Number of results, "True" for auto | ex: 4
+        :param results_len | int: --> Number of results | ex: 4
         :param lang | str: --> The language | ex: "en"
         :param encoding | str: --> The encoding for the research | ex: "utf-8"
         :param random | bool: --> Return a random link
-        :param image | bool: --> Search for image links instead of normal links
 
         :google dorks | str: --> Google Dorks keyword arguments. Query has to be None.                                      
         """
 
-        return GoogleSearch._search(query=query, results_len=results_len, lang=lang, encoding=encoding, random=random, image=image, **kwargs)
+        return GoogleSearch._search(query=query, results_len=results_len, lang=lang, encoding=encoding, random=random, **kwargs)
 
     def _search(query: str = None,
                 results_len: int = 1,
                 lang: str = "fr",
                 encoding: str = "utf-8",
                 random: bool = False,
-                image: bool = False,
                 **kwargs):
 
         if query is None and kwargs == {} or query is not None and kwargs != {}:
@@ -58,7 +55,7 @@ class GoogleSearch():
         results_len_search = randint(
             5, 25) + results_len if random else results_len
 
-        url = f"https://google.com/search?q={query}&hl={lang}&ie={encoding}{'&tbm=isch' if image else ''}"
+        url = f"https://google.com/search?q={query}&hl={lang}&ie={encoding}"
         r = req.get(url, headers=GoogleSearch.headers)
 
         r.raise_for_status()
@@ -69,7 +66,7 @@ class GoogleSearch():
         if random:
             shuffle(results)
 
-        if results_len is not True and results_len != len(results):
+        if results_len != len(results):
             results = results[:results_len]
 
         return results
