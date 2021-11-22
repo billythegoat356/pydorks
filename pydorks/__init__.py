@@ -2,7 +2,7 @@
 
 # https://github.com/billythegoat356/pydorks
 
-# Version : 0.3
+# Version : 0.6
 
 # <3
 
