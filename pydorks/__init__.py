@@ -2,7 +2,7 @@
 
 # https://github.com/billythegoat356/pydorks
 
-# Version : 0.3
+# Version : 0.4
 
 # <3
 
@@ -24,6 +24,7 @@ class GoogleSearch():
                lang: str = "fr",
                encoding: str = "utf-8",
                random: bool = False,
+               image: bool = False,
                **kwargs):
         """
         Google Search
@@ -32,17 +33,19 @@ class GoogleSearch():
         :param lang | str: --> The language | ex: "en"
         :param encoding | str: --> The encoding for the research | ex: "utf-8"
         :param random | bool: --> Return a random link
+        :param image | bool: --> Search for image links instead of normal links
 
         :google dorks | str: --> Google Dorks keyword arguments. Query has to be None.                                      
         """
 
-        return GoogleSearch._search(query=query, results_len=results_len, lang=lang, encoding=encoding, random=random, **kwargs)
+        return GoogleSearch._search(query=query, results_len=results_len, lang=lang, encoding=encoding, random=random, image=image, **kwargs)
 
     def _search(query: str = None,
                 results_len: int = 1,
                 lang: str = "fr",
                 encoding: str = "utf-8",
                 random: bool = False,
+                image: bool = False,
                 **kwargs):
 
         if query is None and kwargs == {} or query is not None and kwargs != {}:
@@ -55,7 +58,7 @@ class GoogleSearch():
         results_len_search = randint(
             5, 25) + results_len if random else results_len
 
-        url = f"https://google.com/search?q={query}&hl={lang}&ie={encoding}"
+        url = f"https://google.com/search?q={query}&hl={lang}&ie={encoding}{'&tbm=isch' if image else ''}"
         r = req.get(url, headers=GoogleSearch.headers)
 
         r.raise_for_status()
