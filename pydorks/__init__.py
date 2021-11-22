@@ -2,7 +2,7 @@
 
 # https://github.com/billythegoat356/pydorks
 
-# Version : 0.4
+# Version : 0.5
 
 # <3
 
@@ -29,7 +29,7 @@ class GoogleSearch():
         """
         Google Search
         :param query | str: --> The text to be searched | ex: "billythegoat356"
-        :param results_len | int: --> Number of results | ex: 4
+        :param results_len | int: --> Number of results, "True" for auto | ex: 4
         :param lang | str: --> The language | ex: "en"
         :param encoding | str: --> The encoding for the research | ex: "utf-8"
         :param random | bool: --> Return a random link
@@ -69,7 +69,7 @@ class GoogleSearch():
         if random:
             shuffle(results)
 
-        if results_len != len(results):
+        if results_len is not True and results_len != len(results):
             results = results[:results_len]
 
         return results
